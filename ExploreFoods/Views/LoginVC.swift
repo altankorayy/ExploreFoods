@@ -1,5 +1,5 @@
 //
-//  RegisterVC.swift
+//  LoginVC.swift
 //  ExploreFoods
 //
 //  Created by Altan on 24.02.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegisterVC: UIViewController {
+class LoginVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
