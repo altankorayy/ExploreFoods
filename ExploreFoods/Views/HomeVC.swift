@@ -13,11 +13,11 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         
         configureView()
-        
+        configureSheet()
     }
     
     private func configureSheet() {
-        let vc = RegisterVC()
+        let vc = WelcomeVC()
         let navVC = UINavigationController(rootViewController: vc)
         
         if let sheet = navVC.sheetPresentationController {

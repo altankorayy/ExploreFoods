@@ -55,6 +55,21 @@ class WelcomeVC: UIViewController {
     private func configureView() {
         view.backgroundColor = .systemBackground
         view.addSubviews(titleLabel, loginButton, registerButton)
+        
+        loginButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
+    }
+    
+    @objc
+    private func didTapRegisterButton() {
+        let registerVC = RegisterVC()
+        navigationController?.present(registerVC, animated: true)
+    }
+    
+    @objc
+    private func didTapLoginButton() {
+        let loginVC = LoginVC()
+        navigationController?.present(loginVC, animated: true)
     }
     
     private func configureConstraints() {
@@ -65,13 +80,13 @@ class WelcomeVC: UIViewController {
             titleLabel.heightAnchor.constraint(equalToConstant: 80),
             
             loginButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
-            loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loginButton.widthAnchor.constraint(equalToConstant: 300),
+            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
             
             registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 15),
-            registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            registerButton.widthAnchor.constraint(equalToConstant: 300),
+            registerButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            registerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             registerButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
