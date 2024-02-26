@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeVC: UIViewController {
     
@@ -14,6 +15,12 @@ class HomeVC: UIViewController {
         
         configureView()
         configureSheet()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
     }
     
     private func configureSheet() {

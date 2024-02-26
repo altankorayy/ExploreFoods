@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class RegisterVC: UIViewController {
     
@@ -48,6 +49,7 @@ class RegisterVC: UIViewController {
         textField.leftViewMode = .always
         textField.keyboardType = .emailAddress
         textField.adjustsFontSizeToFitWidth = true
+        textField.autocorrectionType = .no
         return textField
     }()
     
@@ -64,6 +66,7 @@ class RegisterVC: UIViewController {
         textField.leftViewMode = .always
         textField.adjustsFontSizeToFitWidth = true
         textField.isSecureTextEntry = true
+        textField.autocorrectionType = .no
         return textField
     }()
     
@@ -78,6 +81,9 @@ class RegisterVC: UIViewController {
         button.backgroundColor = UIColor.systemPink
         return button
     }()
+    
+    private var viewModel: RegisterViewModel?
+    private let spinnerView = SpinnerView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +95,33 @@ class RegisterVC: UIViewController {
     private func configureView() {
         view.backgroundColor = .systemBackground
         view.addSubviews(titleLabel, usernameTextField, emailTextField, passwordTextField, completeButton)
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        completeButton.addTarget(self, action: #selector(didTapCompleteButton), for: .touchUpInside)
+    }
+    
+    @objc
+    private func didTapCompleteButton() {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        
+        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
+            showAlertView(title: "Something went wrong", message: "Please fill the username and password.")
+            return
+        }
+        
+        viewModel = RegisterViewModel(email: email, password: password)
+        viewModel?.delegate = self
+        viewModel?.createUser(completion: { [weak self] error in
+            guard let self = self else { return }
+            guard let error = error else {
+                self.dismiss(animated: true)
+                return
+            }
+            self.showAlertView(title: "Something went wrong", message: error.rawValue)
+        })
     }
     
     private func configureConstraints() {
@@ -120,4 +153,25 @@ class RegisterVC: UIViewController {
         ])
     }
 
+}
+
+extension RegisterVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+}
+
+extension RegisterVC: SpinnerViewDelegate {    
+    func showSpinnerView(_ bool: Bool) {
+        if bool {
+            startSpinnerView()
+        } else {
+            dismissSpinnerView()
+        }
+    }
 }
