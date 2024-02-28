@@ -72,6 +72,8 @@ class LoginVC: UIViewController {
         button.backgroundColor = UIColor.systemPink
         return button
     }()
+    
+    var viewModel: LoginViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +86,27 @@ class LoginVC: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubviews(titleLabel, emailTextField, passwordTextField, forgotPasswordButton, completeButton)
         
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
         forgotPasswordButton.addTarget(self, action: #selector(didTapForgotPasswordButton), for: .touchUpInside)
+        completeButton.addTarget(self, action: #selector(didTapCompleteButton), for: .touchUpInside)
+    }
+    
+    @objc
+    private func didTapCompleteButton() {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        
+        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
+            showAlertView(title: "Something went wrong", message: "Please fill the username and password.")
+            return
+        }
+        
+        let authManagerService: AuthManagerService = AuthManager()
+        viewModel = LoginViewModel(authManagerService: authManagerService, email: email, password: password)
+        viewModel?.delegate = self
+        viewModel?.loginUser()
     }
     
     @objc
@@ -121,5 +143,36 @@ class LoginVC: UIViewController {
         ])
     }
 
+}
+
+extension LoginVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+}
+
+extension LoginVC: LoginViewModelDelegate {
+    func registerSuccess(_ state: Bool) {
+        if state {
+            dismiss(animated: true)
+        }
+    }
+    
+    func handleError(_ error: String) {
+        showAlertView(title: "Something went wrong", message: error)
+    }
+    
+    func showSpinnerView(_ state: Bool) {
+        if state {
+            startSpinnerView()
+        } else {
+            dismissSpinnerView()
+        }
+    }
 }
 

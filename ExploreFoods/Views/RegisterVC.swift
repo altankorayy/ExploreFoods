@@ -82,8 +82,7 @@ class RegisterVC: UIViewController {
         return button
     }()
     
-    private var viewModel: RegisterViewModel?
-    private let spinnerView = SpinnerView()
+    var viewModel: RegisterViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +95,7 @@ class RegisterVC: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubviews(titleLabel, usernameTextField, emailTextField, passwordTextField, completeButton)
         
+        usernameTextField.delegate = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
@@ -112,16 +112,11 @@ class RegisterVC: UIViewController {
             return
         }
         
-        viewModel = RegisterViewModel(email: email, password: password)
+        let authManagerService: AuthManagerService = AuthManager()
+        viewModel = RegisterViewModel(authManagerService: authManagerService, email: email, password: password)
         viewModel?.delegate = self
-        viewModel?.createUser(completion: { [weak self] error in
-            guard let self = self else { return }
-            guard let error = error else {
-                self.dismiss(animated: true)
-                return
-            }
-            self.showAlertView(title: "Something went wrong", message: error.rawValue)
-        })
+        viewModel?.createUser()
+        
     }
     
     private func configureConstraints() {
@@ -157,18 +152,30 @@ class RegisterVC: UIViewController {
 
 extension RegisterVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailTextField {
+        if textField == usernameTextField {
+            emailTextField.becomeFirstResponder()
+        } else if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
         } else if textField == passwordTextField {
-            textField.resignFirstResponder()
+            passwordTextField.resignFirstResponder()
         }
         return true
     }
 }
 
-extension RegisterVC: SpinnerViewDelegate {    
-    func showSpinnerView(_ bool: Bool) {
-        if bool {
+extension RegisterVC: RegisterViewModelDelegate {
+    func registerSuccess(_ state: Bool) {
+        if state {
+            dismiss(animated: true)
+        }
+    }
+    
+    func handleError(_ error: String) {
+        showAlertView(title: "Something went wrong", message: error)
+    }
+    
+    func showSpinnerView(_ state: Bool) {
+        if state {
             startSpinnerView()
         } else {
             dismissSpinnerView()

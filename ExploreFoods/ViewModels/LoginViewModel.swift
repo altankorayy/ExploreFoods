@@ -1,26 +1,26 @@
 //
-//  RegisterViewModel.swift
+//  LoginViewModel.swift
 //  ExploreFoods
 //
-//  Created by Altan on 26.02.2024.
+//  Created by Altan on 28.02.2024.
 //
 
 import Foundation
-import Firebase
 
-protocol RegisterViewModelDelegate: AnyObject {
+protocol LoginViewModelDelegate: AnyObject {
     func registerSuccess(_ state: Bool)
     func showSpinnerView(_ state: Bool)
     func handleError(_ error: String)
 }
 
-class RegisterViewModel {
+class LoginViewModel {
     
     var email: String
     var password: String
     
+    weak var delegate: LoginViewModelDelegate?
+    
     private let authManagerService: AuthManagerService
-    weak var delegate: RegisterViewModelDelegate?
     
     init(authManagerService: AuthManagerService, email: String, password: String) {
         self.authManagerService = authManagerService
@@ -28,9 +28,9 @@ class RegisterViewModel {
         self.password = password
     }
     
-    public func createUser() {
+    public func loginUser() {
         delegate?.showSpinnerView(true)
-        authManagerService.createUser(email: email, password: password) { [weak self] error in
+        authManagerService.loginUser(email: email, password: password) { [weak self] error in
             guard let error = error else {
                 self?.delegate?.showSpinnerView(false)
                 self?.delegate?.registerSuccess(true)
