@@ -75,10 +75,10 @@ class RegisterVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Complete", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
-        button.backgroundColor = UIColor.systemPink
+        button.backgroundColor = UIColorKit.customBlue
         return button
     }()
     

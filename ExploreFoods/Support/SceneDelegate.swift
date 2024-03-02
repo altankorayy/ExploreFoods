@@ -19,7 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let vc = UINavigationController(rootViewController: HomeVC())
+        let networkManagerService: NetworkManagerService = NetworkManager()
+        let viewModel = HomeViewModel(networkManagerService: networkManagerService)
+        let vc = UINavigationController(rootViewController: HomeVC(viewModel: viewModel))
         window.rootViewController = vc
         self.window = window
         window.makeKeyAndVisible()
@@ -28,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func configureNavigationBar() {
-        UINavigationBar.appearance().tintColor = .systemPink
+        UINavigationBar.appearance().tintColor = UIColorKit.customBlue
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

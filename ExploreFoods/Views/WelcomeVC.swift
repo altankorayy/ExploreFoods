@@ -25,11 +25,11 @@ class WelcomeVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Login", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        button.setTitleColor(.systemPink, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 25
         button.clipsToBounds = true
         button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.systemPink.cgColor
+        button.layer.borderColor = UIColorKit.customBlue.cgColor
         return button
     }()
     
@@ -38,10 +38,10 @@ class WelcomeVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Register", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 25
         button.clipsToBounds = true
-        button.backgroundColor = UIColor.systemPink
+        button.backgroundColor = UIColorKit.customBlue
         return button
     }()
 

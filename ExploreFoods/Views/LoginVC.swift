@@ -55,7 +55,7 @@ class LoginVC: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Forgot Password?", for: .normal)
-        button.setTitleColor(.systemPink, for: .normal)
+        button.setTitleColor(UIColorKit.customBlue, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
         button.titleLabel?.textAlignment = .right
         return button
@@ -66,10 +66,10 @@ class LoginVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Complete", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
-        button.backgroundColor = UIColor.systemPink
+        button.backgroundColor = UIColorKit.customBlue
         return button
     }()
     
