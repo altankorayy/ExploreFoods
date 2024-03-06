@@ -24,7 +24,7 @@ class HomeViewModel {
     }
     
     func getMealsByArea_TR() {
-        networkManagerService.fetchMealsByArea(with: "Canadian") { [weak self] result in
+        networkManagerService.getMealsByArea(with: "Canadian") { [weak self] result in
             switch result {
             case .success(let data):
                 self?.delegate?.updateView(with: data.meals)
