@@ -12,8 +12,7 @@ import Alamofire
 enum Sections: Int {
     case country = 0
     case categories = 1
-    case popular = 2
-    case specials = 3
+    case specials = 2
 }
 
 class HomeVC: UIViewController {
@@ -23,7 +22,6 @@ class HomeVC: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(CountryTableViewCell.self, forCellReuseIdentifier: CountryTableViewCell.identifier)
         tableView.register(CategoriesTableViewCell.self, forCellReuseIdentifier: CategoriesTableViewCell.identifier)
-        tableView.register(PopularTableViewCell.self, forCellReuseIdentifier: PopularTableViewCell.identifier)
         tableView.register(SpecialsTableViewCell.self, forCellReuseIdentifier: SpecialsTableViewCell.identifier)
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
@@ -33,8 +31,11 @@ class HomeVC: UIViewController {
     
     private let viewModel: HomeViewModel
     
-    let sectionsTitles = ["Country","Categories", "Popular", "Chef's Specials"]
+    let sectionsTitles = ["Country","Categories", "Chef's Specials"]
     let areas = ["🇹🇷 Turkey", "🇨🇦 Canada", "🇧🇷 Brasil", "🇩🇪 Germany", "🇨🇳 China", "🇮🇳 India", "🇩🇰 Denmark", "🇰🇷 Korean"]
+    
+    var areasModel = [Meal]()
+    var categoriesModel = [Category]()
     
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
@@ -51,7 +52,9 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         
         configureView()
+        
         self.viewModel.getMealsByArea_TR()
+        self.viewModel.getCategories()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,15 +118,11 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         case Sections.categories.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CategoriesTableViewCell.identifier, for: indexPath) as? CategoriesTableViewCell else { return UITableViewCell() }
-            
-            return cell
-        case Sections.popular.rawValue:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularTableViewCell.identifier, for: indexPath) as? PopularTableViewCell else { return UITableViewCell() }
-            
+            cell.configure(with: categoriesModel)
             return cell
         case Sections.specials.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SpecialsTableViewCell.identifier, for: indexPath) as? SpecialsTableViewCell else { return UITableViewCell() }
-            
+            //cell.configure(with: <#T##[Meals]#>)
             return cell
         default:
             return UITableViewCell()
@@ -137,13 +136,11 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case Sections.country.rawValue:
-            return 120
+            return 130
         case Sections.categories.rawValue:
             return 220
-        case Sections.popular.rawValue:
-            return 120
         case Sections.specials.rawValue:
-            return 120
+            return 110
         default:
             return 120
         }
@@ -161,8 +158,14 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeVC: HomeViewModelDelegate {
-    func updateView(with model: [Meals]) {
-        print(model)
+    func updateViewArea(with area: [Meal]) {
+        self.areasModel = area
+    }
+    
+    func updateViewCategories(with categories: [Category]) {
+        self.categoriesModel = categories
+        
+        self.tableView.reloadData()
     }
     
     func updateViewWithError(with error: Alamofire.AFError) {

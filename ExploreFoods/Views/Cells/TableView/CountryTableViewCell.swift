@@ -13,7 +13,7 @@ class CountryTableViewCell: UITableViewCell {
     
     private lazy var countryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 120, height: 50)
+        layout.itemSize = CGSize(width: 120, height: 55)
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false

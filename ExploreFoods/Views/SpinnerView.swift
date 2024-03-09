@@ -21,7 +21,6 @@ final class SpinnerView: UIView {
     }
     
     private func configureView() {
-        backgroundColor = .secondarySystemBackground
         layer.cornerRadius = 16
         clipsToBounds = true
         layer.borderWidth = 1

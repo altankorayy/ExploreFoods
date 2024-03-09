@@ -21,7 +21,6 @@
 		E16478392B8CF0480013BD39 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16478382B8CF0480013BD39 /* UIViewController+Extension.swift */; };
 		E18258852B8CE269006A784D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E18258842B8CE269006A784D /* GoogleService-Info.plist */; };
 		E1D9750E2B94A0BF009AACD9 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D9750D2B94A0BF009AACD9 /* CategoriesCollectionViewCell.swift */; };
-		E1D975102B94A0E9009AACD9 /* PopularCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D9750F2B94A0E9009AACD9 /* PopularCollectionViewCell.swift */; };
 		E1D975122B94A0FE009AACD9 /* SpecialsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D975112B94A0FE009AACD9 /* SpecialsCollectionViewCell.swift */; };
 		E1E5D0772B8A177500B0B5B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E5D0762B8A177500B0B5B3 /* AppDelegate.swift */; };
 		E1E5D0792B8A177500B0B5B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E5D0782B8A177500B0B5B3 /* SceneDelegate.swift */; };
@@ -37,7 +36,6 @@
 		E1E5D0B32B8A383C00B0B5B3 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E5D0B22B8A383C00B0B5B3 /* RegisterVC.swift */; };
 		E1E5D0B52B8A384500B0B5B3 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E5D0B42B8A384500B0B5B3 /* LoginVC.swift */; };
 		E1F8F6C12B98966700AA2846 /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F8F6C02B98966700AA2846 /* CountryTableViewCell.swift */; };
-		E1F8F6C32B98967000AA2846 /* PopularTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F8F6C22B98967000AA2846 /* PopularTableViewCell.swift */; };
 		E1F8F6C52B98967C00AA2846 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F8F6C42B98967C00AA2846 /* CategoriesTableViewCell.swift */; };
 		E1F8F6C72B98968A00AA2846 /* SpecialsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F8F6C62B98968A00AA2846 /* SpecialsTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -72,7 +70,6 @@
 		E16478382B8CF0480013BD39 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		E18258842B8CE269006A784D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1D9750D2B94A0BF009AACD9 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
-		E1D9750F2B94A0E9009AACD9 /* PopularCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1D975112B94A0FE009AACD9 /* SpecialsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1E5D0732B8A177500B0B5B3 /* ExploreFoods.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExploreFoods.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1E5D0762B8A177500B0B5B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,7 +89,6 @@
 		E1E5D0B22B8A383C00B0B5B3 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		E1E5D0B42B8A384500B0B5B3 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		E1F8F6C02B98966700AA2846 /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
-		E1F8F6C22B98967000AA2846 /* PopularTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularTableViewCell.swift; sourceTree = "<group>"; };
 		E1F8F6C42B98967C00AA2846 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		E1F8F6C62B98968A00AA2846 /* SpecialsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,9 +205,9 @@
 		E1E5D0A82B8A179F00B0B5B3 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				E13E85A12B9342D00099CEF0 /* HomeViewModel.swift */,
 				E16478342B8CEAC60013BD39 /* RegisterViewModel.swift */,
 				E16042502B8F8214007C10D2 /* LoginViewModel.swift */,
-				E13E85A12B9342D00099CEF0 /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -252,7 +248,6 @@
 			children = (
 				E1F8F6C02B98966700AA2846 /* CountryTableViewCell.swift */,
 				E1F8F6C42B98967C00AA2846 /* CategoriesTableViewCell.swift */,
-				E1F8F6C22B98967000AA2846 /* PopularTableViewCell.swift */,
 				E1F8F6C62B98968A00AA2846 /* SpecialsTableViewCell.swift */,
 			);
 			path = TableView;
@@ -263,7 +258,6 @@
 			children = (
 				E13E85A62B9361100099CEF0 /* CountryCollectionViewCell.swift */,
 				E1D9750D2B94A0BF009AACD9 /* CategoriesCollectionViewCell.swift */,
-				E1D9750F2B94A0E9009AACD9 /* PopularCollectionViewCell.swift */,
 				E1D975112B94A0FE009AACD9 /* SpecialsCollectionViewCell.swift */,
 			);
 			path = CollectionView;
@@ -427,8 +421,6 @@
 				E16478372B8CEDDE0013BD39 /* SpinnerView.swift in Sources */,
 				E13E85992B9334850099CEF0 /* NetworkManager.swift in Sources */,
 				E1E5D0AF2B8A1B2F00B0B5B3 /* UIView+Extension.swift in Sources */,
-				E1F8F6C32B98967000AA2846 /* PopularTableViewCell.swift in Sources */,
-				E1D975102B94A0E9009AACD9 /* PopularCollectionViewCell.swift in Sources */,
 				E1F8F6C12B98966700AA2846 /* CountryTableViewCell.swift in Sources */,
 				E16478352B8CEAC60013BD39 /* RegisterViewModel.swift in Sources */,
 				E1E5D0AD2B8A19E100B0B5B3 /* Constants.swift in Sources */,

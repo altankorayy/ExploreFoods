@@ -7,12 +7,22 @@
 
 import Foundation
 
-struct Meal: Codable {
-    let meals: [Meals]
+struct Meals: Codable {
+    let meals: [Meal]
 }
 
-struct Meals: Codable {
+struct Categories: Codable {
+    let categories: [Category]
+}
+
+struct Meal: Codable {
     let strMeal: String
     let strMealThumb: String
     let idMeal: String
+}
+
+struct Category: Codable {
+    let idCategory, strCategory: String
+    let strCategoryThumb: String
+    let strCategoryDescription: String
 }

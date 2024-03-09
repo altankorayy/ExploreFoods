@@ -44,9 +44,9 @@ class CountryCollectionViewCell: UICollectionViewCell {
     private func configureView() {
         contentView.addSubview(titleLabel)
         
-        layer.masksToBounds = true
-        layer.cornerRadius = 10
         backgroundColor = .secondarySystemBackground
+        layer.cornerRadius = 12
+        layer.masksToBounds = true
         
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),

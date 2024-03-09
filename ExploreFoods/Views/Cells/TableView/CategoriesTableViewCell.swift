@@ -23,6 +23,8 @@ class CategoriesTableViewCell: UITableViewCell {
         return collectionView
     }()
     
+    var categoryModel = [Category]()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -37,6 +39,14 @@ class CategoriesTableViewCell: UITableViewCell {
         categoriesCollectionView.frame = bounds
     }
     
+    public func configure(with model: [Category]) {
+        self.categoryModel = model
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.categoriesCollectionView.reloadData()
+        }
+    }
+    
     private func configureView() {
         contentView.addSubview(categoriesCollectionView)
         
@@ -48,12 +58,12 @@ class CategoriesTableViewCell: UITableViewCell {
 
 extension CategoriesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return categoryModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
-        
+        cell.configure(with: categoryModel[indexPath.row])
         return cell
     }
     

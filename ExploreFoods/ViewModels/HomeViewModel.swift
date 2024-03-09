@@ -9,7 +9,8 @@ import UIKit
 import Alamofire
 
 protocol HomeViewModelDelegate: AnyObject {
-    func updateView(with model: [Meals])
+    func updateViewArea(with area: [Meal])
+    func updateViewCategories(with categories: [Category])
     func updateViewWithError(with error: AFError)
 }
 
@@ -24,10 +25,21 @@ class HomeViewModel {
     }
     
     func getMealsByArea_TR() {
-        networkManagerService.getMealsByArea(with: "Canadian") { [weak self] result in
+        networkManagerService.getMealsByArea(with: "Turkish") { [weak self] result in
             switch result {
             case .success(let data):
-                self?.delegate?.updateView(with: data.meals)
+                self?.delegate?.updateViewArea(with: data.meals)
+            case .failure(let error):
+                self?.delegate?.updateViewWithError(with: error)
+            }
+        }
+    }
+    
+    func getCategories() {
+        networkManagerService.getCategories { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.delegate?.updateViewCategories(with: data.categories)
             case .failure(let error):
                 self?.delegate?.updateViewWithError(with: error)
             }

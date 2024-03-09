@@ -9,12 +9,13 @@ import UIKit
 import Alamofire
 
 protocol NetworkManagerService {
-    func getMealsByArea(with area: String, completion: @escaping(Result<Meal, AFError>) -> Void)
+    func getMealsByArea(with area: String, completion: @escaping(Result<Meals, AFError>) -> Void)
+    func getCategories(completion: @escaping(Result<Categories, AFError>) -> Void)
 }
 
 class NetworkManager: NetworkManagerService {
     
-    func getMealsByArea(with area: String, completion: @escaping(Result<Meal, AFError>) -> Void) {
+    func getMealsByArea(with area: String, completion: @escaping(Result<Meals, AFError>) -> Void) {
         let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.byArea.rawValue + "\(area)"
         
         guard let url = URL(string: endpoint) else {
@@ -22,7 +23,7 @@ class NetworkManager: NetworkManagerService {
             return
         }
         
-        AF.request(url, method: .get).responseDecodable(of: Meal.self) { response in
+        AF.request(url, method: .get).responseDecodable(of: Meals.self) { response in
             switch response.result {
             case .success(let data):
                 completion(.success(data))
@@ -32,7 +33,7 @@ class NetworkManager: NetworkManagerService {
         }
     }
     
-    func getCategories(completion: @escaping(Result<Meal, AFError>) -> Void) {
+    func getCategories(completion: @escaping(Result<Categories, AFError>) -> Void) {
         let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.categories.rawValue
         
         guard let url = URL(string: endpoint) else {
@@ -40,7 +41,7 @@ class NetworkManager: NetworkManagerService {
             return
         }
         
-        AF.request(url, method: .get).responseDecodable(of: Meal.self) { response in
+        AF.request(url, method: .get).responseDecodable(of: Categories.self) { response in
             switch response.result {
             case .success(let data):
                 completion(.success(data))

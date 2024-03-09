@@ -13,7 +13,7 @@ class SpecialsTableViewCell: UITableViewCell {
     
     private lazy var specialsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 150, height: 200)
+        layout.itemSize = CGSize(width: 350, height: 100)
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +23,8 @@ class SpecialsTableViewCell: UITableViewCell {
         return collectionView
     }()
     
+    var model = [Meals]()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -31,6 +33,14 @@ class SpecialsTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    override func layoutSubviews() {
+        specialsCollectionView.frame = bounds
+    }
+    
+    public func configure(with model: [Meals]) {
+        self.model = model
     }
     
     private func configureView() {
@@ -44,7 +54,7 @@ class SpecialsTableViewCell: UITableViewCell {
 
 extension SpecialsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

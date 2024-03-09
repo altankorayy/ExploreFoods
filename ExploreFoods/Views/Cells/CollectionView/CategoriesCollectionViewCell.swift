@@ -14,7 +14,6 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     private lazy var categoriesTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Test Food"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         label.textColor = .label
@@ -48,8 +47,8 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         categoriesImage.image = nil
     }
     
-    public func configure() {
-        
+    public func configure(with category: Category) {
+        categoriesTitle.text = category.strCategory
     }
     
     private func configureView() {
