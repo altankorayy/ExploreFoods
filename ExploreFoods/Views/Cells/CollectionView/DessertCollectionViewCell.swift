@@ -1,5 +1,5 @@
 //
-//  SpecialsCollectionViewCell.swift
+//  DessertCollectionViewCell.swift
 //  ExploreFoods
 //
 //  Created by Altan on 3.03.2024.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SpecialsCollectionViewCell: UICollectionViewCell {
+class DessertCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "SpecialsCollectionViewCell"
+    static let identifier = "DessertCollectionViewCell"
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -19,19 +19,6 @@ class SpecialsCollectionViewCell: UICollectionViewCell {
         label.lineBreakMode = .byTruncatingTail
         label.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
         label.textColor = .label
-        label.text = "Test Food"
-        return label
-    }()
-    
-    private lazy var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.lineBreakMode = .byTruncatingTail
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = .secondaryLabel
-        label.text = "Text Food Testing foods exc 130 cal."
         return label
     }()
     
@@ -41,9 +28,10 @@ class SpecialsCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
-        imageView.backgroundColor = .green
         return imageView
     }()
+    
+    private let imageLoaderService: ImageLoaderService = ImageLoader()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,12 +45,28 @@ class SpecialsCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         titleLabel.text = nil
-        descriptionLabel.text = nil
         foodImageView.image = nil
     }
     
+    public func configure(with desserts: Meal) {
+        titleLabel.text = desserts.strMeal
+        
+        imageLoaderService.getImage(url: desserts.strMealThumb) { [weak self] result in
+            switch result {
+            case .success(let imageData):
+                guard let imageData = imageData, let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    self.foodImageView.image = UIImage(data: imageData)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     private func configureView() {
-        addSubviews(titleLabel, descriptionLabel, foodImageView)
+        addSubviews(titleLabel, foodImageView)
         
         backgroundColor = .secondarySystemBackground
         layer.cornerRadius = 12
@@ -74,15 +78,10 @@ class SpecialsCollectionViewCell: UICollectionViewCell {
             foodImageView.widthAnchor.constraint(equalToConstant: 80),
             foodImageView.heightAnchor.constraint(equalToConstant: 80),
             
-            titleLabel.topAnchor.constraint(equalTo: foodImageView.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: 10),
+            titleLabel.centerYAnchor.constraint(equalTo: foodImageView.centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: 15),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            titleLabel.heightAnchor.constraint(equalToConstant: 22),
-            
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 20)
+            titleLabel.heightAnchor.constraint(equalToConstant: 23)
         ])
     }
     

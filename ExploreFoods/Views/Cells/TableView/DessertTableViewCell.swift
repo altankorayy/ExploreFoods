@@ -1,5 +1,5 @@
 //
-//  SpecialsTableViewCell.swift
+//  DessertTableViewCell.swift
 //  ExploreFoods
 //
 //  Created by Altan on 6.03.2024.
@@ -7,23 +7,23 @@
 
 import UIKit
 
-class SpecialsTableViewCell: UITableViewCell {
+class DessertTableViewCell: UITableViewCell {
 
-    static let identifier = "SpecialsTableViewCell"
+    static let identifier = "DessertTableViewCell"
     
-    private lazy var specialsCollectionView: UICollectionView = {
+    private lazy var dessertCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 350, height: 100)
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(SpecialsCollectionViewCell.self, forCellWithReuseIdentifier: SpecialsCollectionViewCell.identifier)
+        collectionView.register(DessertCollectionViewCell.self, forCellWithReuseIdentifier: DessertCollectionViewCell.identifier)
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     
-    var model = [Meals]()
+    var dessertsModel = [Meal]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,30 +36,34 @@ class SpecialsTableViewCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
-        specialsCollectionView.frame = bounds
+        dessertCollectionView.frame = bounds
     }
     
-    public func configure(with model: [Meals]) {
-        self.model = model
+    public func configure(with model: [Meal]) {
+        self.dessertsModel = model
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.dessertCollectionView.reloadData()
+        }
     }
     
     private func configureView() {
-        contentView.addSubview(specialsCollectionView)
+        contentView.addSubview(dessertCollectionView)
         
-        specialsCollectionView.delegate = self
-        specialsCollectionView.dataSource = self
+        dessertCollectionView.delegate = self
+        dessertCollectionView.dataSource = self
     }
 
 }
 
-extension SpecialsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension DessertTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return dessertsModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SpecialsCollectionViewCell.identifier, for: indexPath) as?  SpecialsCollectionViewCell else { return UICollectionViewCell() }
-        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DessertCollectionViewCell.identifier, for: indexPath) as?  DessertCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(with: dessertsModel[indexPath.row])
         return cell
     }
     

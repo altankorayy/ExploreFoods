@@ -11,6 +11,7 @@ import Alamofire
 protocol NetworkManagerService {
     func getMealsByArea(with area: String, completion: @escaping(Result<Meals, AFError>) -> Void)
     func getCategories(completion: @escaping(Result<Categories, AFError>) -> Void)
+    func getDesserts(completion: @escaping(Result<Meals, AFError>) -> Void)
 }
 
 class NetworkManager: NetworkManagerService {
@@ -42,6 +43,24 @@ class NetworkManager: NetworkManagerService {
         }
         
         AF.request(url, method: .get).responseDecodable(of: Categories.self) { response in
+            switch response.result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func getDesserts(completion: @escaping(Result<Meals, AFError>) -> Void) {
+        let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.desserts.rawValue
+        
+        guard let url = URL(string: endpoint) else {
+            completion(.failure(.invalidURL(url: endpoint)))
+            return
+        }
+        
+        AF.request(url, method: .get).responseDecodable(of: Meals.self) { response in
             switch response.result {
             case .success(let data):
                 completion(.success(data))
