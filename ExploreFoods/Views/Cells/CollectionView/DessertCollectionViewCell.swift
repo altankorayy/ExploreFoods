@@ -67,7 +67,6 @@ class DessertCollectionViewCell: UICollectionViewCell {
     
     private func configureView() {
         addSubviews(titleLabel, foodImageView)
-        
         backgroundColor = .secondarySystemBackground
         layer.cornerRadius = 12
         layer.masksToBounds = true

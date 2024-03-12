@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol DidSelectItemAtDelegate: AnyObject {
+    func didSelectItemAt(with area: String, viewController: UIViewController)
+}
+
 class CountryTableViewCell: UITableViewCell {
 
     static let identifier = "CountryTableViewCell"
@@ -24,6 +28,8 @@ class CountryTableViewCell: UITableViewCell {
     }()
     
     var areas = [String]()
+    
+    weak var delegate: DidSelectItemAtDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -64,5 +70,12 @@ extension CountryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        guard let selectedModel = areas[indexPath.row].components(separatedBy: " ").last else { return }
+        let networkManagerService: NetworkManagerService = NetworkManager()
+        let viewModel = CountryDetailViewModel(networkManagerService: networkManagerService, area: selectedModel)
+        let destinationVC = CountryDetailVC(viewModel: viewModel)
+        
+        self.delegate?.didSelectItemAt(with: selectedModel, viewController: destinationVC)
     }
 }

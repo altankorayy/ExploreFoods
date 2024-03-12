@@ -32,7 +32,7 @@ class HomeVC: UIViewController {
     private let viewModel: HomeViewModel
     
     let sectionsTitles = ["Country","Categories", "Desserts"]
-    let areas = ["🇹🇷 Turkey", "🇨🇦 Canada", "🇧🇷 Brasil", "🇩🇪 Germany", "🇨🇳 China", "🇮🇳 India", "🇩🇰 Denmark", "🇰🇷 Korean"]
+    let areas = ["🇹🇷 Turkish", "🇯🇵 Japanese", "🇬🇧 British", "🇫🇷 French", "🇨🇳 Chinese", "🇮🇳 Indian", "🇮🇹 Italian", "🇷🇺 Russian"]
     
     var areasModel = [Meal]()
     var categoriesModel = [Category]()
@@ -54,7 +54,6 @@ class HomeVC: UIViewController {
         
         configureView()
         
-        self.viewModel.getMealsByArea_TR()
         self.viewModel.getCategories()
         self.viewModel.getDesserts()
     }
@@ -115,7 +114,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case Sections.country.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryTableViewCell.identifier, for: indexPath) as? CountryTableViewCell else { return UITableViewCell() }
-            
+            cell.delegate = self
             cell.configure(with: areas)
             return cell
         case Sections.categories.rawValue:
@@ -175,7 +174,14 @@ extension HomeVC: HomeViewModelDelegate {
     }
     
     func updateViewWithError(with error: Alamofire.AFError) {
-        print(error)
+        showAlertView(title: "Error", message: error.localizedDescription)
+    }
+}
+
+extension HomeVC: DidSelectItemAtDelegate {
+    func didSelectItemAt(with area: String, viewController: UIViewController) {
+        viewController.title = "\(area) Special Meals"
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

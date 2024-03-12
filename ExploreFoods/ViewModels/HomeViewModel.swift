@@ -25,16 +25,6 @@ class HomeViewModel {
         self.networkManagerService = networkManagerService
     }
     
-    func getMealsByArea_TR() {
-        networkManagerService.getMealsByArea(with: "Turkish") { [weak self] result in
-            switch result {
-            case .success(let data):
-                self?.delegate?.updateViewArea(with: data.meals)
-            case .failure(let error):
-                self?.delegate?.updateViewWithError(with: error)
-            }
-        }
-    }
     
     func getCategories() {
         networkManagerService.getCategories { [weak self] result in

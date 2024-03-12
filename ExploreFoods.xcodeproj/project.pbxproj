@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E10385D62BA0836A00F6DA25 /* CountryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10385D52BA0836A00F6DA25 /* CountryDetailVC.swift */; };
+		E10385D82BA0898400F6DA25 /* CountryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10385D72BA0898400F6DA25 /* CountryDetailViewModel.swift */; };
 		E13E85992B9334850099CEF0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13E85982B9334850099CEF0 /* NetworkManager.swift */; };
 		E13E859B2B93390C0099CEF0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13E859A2B93390C0099CEF0 /* Model.swift */; };
 		E13E859E2B933C650099CEF0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E13E859D2B933C650099CEF0 /* Alamofire */; };
@@ -59,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E10385D52BA0836A00F6DA25 /* CountryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailVC.swift; sourceTree = "<group>"; };
+		E10385D72BA0898400F6DA25 /* CountryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailViewModel.swift; sourceTree = "<group>"; };
 		E13E85982B9334850099CEF0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E13E859A2B93390C0099CEF0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E13E859F2B933DE10099CEF0 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 				E1E5D07A2B8A177500B0B5B3 /* HomeVC.swift */,
 				E1E5D0B02B8A215300B0B5B3 /* WelcomeVC.swift */,
 				E1E5D0B22B8A383C00B0B5B3 /* RegisterVC.swift */,
+				E10385D52BA0836A00F6DA25 /* CountryDetailVC.swift */,
 				E1E5D0B42B8A384500B0B5B3 /* LoginVC.swift */,
 				E16478362B8CEDDE0013BD39 /* SpinnerView.swift */,
 				E13E85A32B934DF00099CEF0 /* Cells */,
@@ -210,6 +215,7 @@
 				E13E85A12B9342D00099CEF0 /* HomeViewModel.swift */,
 				E16478342B8CEAC60013BD39 /* RegisterViewModel.swift */,
 				E16042502B8F8214007C10D2 /* LoginViewModel.swift */,
+				E10385D72BA0898400F6DA25 /* CountryDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -419,6 +425,7 @@
 				E1E5D0B12B8A215300B0B5B3 /* WelcomeVC.swift in Sources */,
 				E1D975122B94A0FE009AACD9 /* DessertCollectionViewCell.swift in Sources */,
 				E1E5D0B32B8A383C00B0B5B3 /* RegisterVC.swift in Sources */,
+				E10385D82BA0898400F6DA25 /* CountryDetailViewModel.swift in Sources */,
 				E1BDD0D12B9F5CD100C7678B /* ImageLoader.swift in Sources */,
 				E16042512B8F8214007C10D2 /* LoginViewModel.swift in Sources */,
 				E1D9750E2B94A0BF009AACD9 /* CategoriesCollectionViewCell.swift in Sources */,
@@ -428,6 +435,7 @@
 				E1F8F6C12B98966700AA2846 /* CountryTableViewCell.swift in Sources */,
 				E16478352B8CEAC60013BD39 /* RegisterViewModel.swift in Sources */,
 				E1E5D0AD2B8A19E100B0B5B3 /* Constants.swift in Sources */,
+				E10385D62BA0836A00F6DA25 /* CountryDetailVC.swift in Sources */,
 				E1F8F6C72B98968A00AA2846 /* DessertTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
