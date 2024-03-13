@@ -21,6 +21,7 @@
 		E16478352B8CEAC60013BD39 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16478342B8CEAC60013BD39 /* RegisterViewModel.swift */; };
 		E16478372B8CEDDE0013BD39 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16478362B8CEDDE0013BD39 /* SpinnerView.swift */; };
 		E16478392B8CF0480013BD39 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16478382B8CF0480013BD39 /* UIViewController+Extension.swift */; };
+		E1677F4F2BA1F14A007ED8B5 /* CountryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1677F4E2BA1F14A007ED8B5 /* CountryDetailTableViewCell.swift */; };
 		E18258852B8CE269006A784D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E18258842B8CE269006A784D /* GoogleService-Info.plist */; };
 		E1BDD0D12B9F5CD100C7678B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDD0D02B9F5CD100C7678B /* ImageLoader.swift */; };
 		E1D9750E2B94A0BF009AACD9 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D9750D2B94A0BF009AACD9 /* CategoriesCollectionViewCell.swift */; };
@@ -73,6 +74,7 @@
 		E16478342B8CEAC60013BD39 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		E16478362B8CEDDE0013BD39 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		E16478382B8CF0480013BD39 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		E1677F4E2BA1F14A007ED8B5 /* CountryDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailTableViewCell.swift; sourceTree = "<group>"; };
 		E18258842B8CE269006A784D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1BDD0D02B9F5CD100C7678B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		E1D9750D2B94A0BF009AACD9 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				E1F8F6C02B98966700AA2846 /* CountryTableViewCell.swift */,
 				E1F8F6C42B98967C00AA2846 /* CategoriesTableViewCell.swift */,
 				E1F8F6C62B98968A00AA2846 /* DessertTableViewCell.swift */,
+				E1677F4E2BA1F14A007ED8B5 /* CountryDetailTableViewCell.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				E1E5D0792B8A177500B0B5B3 /* SceneDelegate.swift in Sources */,
 				E13E85A02B933DE10099CEF0 /* APIEndpoint.swift in Sources */,
 				E1E5D0B12B8A215300B0B5B3 /* WelcomeVC.swift in Sources */,
+				E1677F4F2BA1F14A007ED8B5 /* CountryDetailTableViewCell.swift in Sources */,
 				E1D975122B94A0FE009AACD9 /* DessertCollectionViewCell.swift in Sources */,
 				E1E5D0B32B8A383C00B0B5B3 /* RegisterVC.swift in Sources */,
 				E10385D82BA0898400F6DA25 /* CountryDetailViewModel.swift in Sources */,
@@ -613,6 +617,7 @@
 				DEVELOPMENT_TEAM = 5U3H44JGNP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ExploreFoods/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -644,6 +649,7 @@
 				DEVELOPMENT_TEAM = 5U3H44JGNP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ExploreFoods/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

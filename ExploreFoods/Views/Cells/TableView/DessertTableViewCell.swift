@@ -43,7 +43,8 @@ class DessertTableViewCell: UITableViewCell {
         self.dessertsModel = model
         
         DispatchQueue.main.async { [weak self] in
-            self?.dessertCollectionView.reloadData()
+            guard let self = self else { return }
+            self.dessertCollectionView.reloadData()
         }
     }
     
