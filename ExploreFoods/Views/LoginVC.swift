@@ -55,7 +55,7 @@ class LoginVC: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Forgot Password?", for: .normal)
-        button.setTitleColor(UIColorKit.customBlue, for: .normal)
+        button.setTitleColor(UIColorKit.red, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
         button.titleLabel?.textAlignment = .right
         return button
@@ -66,10 +66,10 @@ class LoginVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Complete", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
-        button.backgroundColor = UIColorKit.customBlue
+        button.backgroundColor = UIColorKit.red
         return button
     }()
     
@@ -160,6 +160,7 @@ extension LoginVC: LoginViewModelDelegate {
     func registerSuccess(_ state: Bool) {
         if state {
             dismiss(animated: true)
+            NotificationCenter.default.post(name: .loginSuccess, object: nil)
         }
     }
     

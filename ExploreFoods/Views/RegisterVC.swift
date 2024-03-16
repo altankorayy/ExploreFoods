@@ -75,10 +75,10 @@ class RegisterVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Complete", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
-        button.backgroundColor = UIColorKit.customBlue
+        button.backgroundColor = UIColorKit.red
         return button
     }()
     
@@ -167,6 +167,7 @@ extension RegisterVC: RegisterViewModelDelegate {
     func registerSuccess(_ state: Bool) {
         if state {
             dismiss(animated: true)
+            NotificationCenter.default.post(name: .registerSuccess, object: nil)
         }
     }
     

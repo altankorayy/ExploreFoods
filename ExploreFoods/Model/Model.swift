@@ -16,9 +16,13 @@ struct Categories: Codable {
 }
 
 struct Meal: Codable {
-    let strMeal: String
-    let strMealThumb: String
     let idMeal: String
+    let strMeal: String
+    let strCategory: String?
+    let strMealThumb: String
+    let strInstructions: String?
+    let strYoutube: String?
+    let strArea: String?
 }
 
 struct Category: Codable {

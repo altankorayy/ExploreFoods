@@ -28,6 +28,7 @@ class CountryDetailTableViewCell: UITableViewCell {
         label.lineBreakMode = .byTruncatingTail
         label.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
         label.textColor = .label
+        label.addShadow(shadowColor: UIColor.gray, shadowRadius: 3, shadowOpacity: 0.6, shadowOffset: CGSize(width: 2, height: 2))
         return label
     }()
     
@@ -71,7 +72,7 @@ class CountryDetailTableViewCell: UITableViewCell {
             
             titleLabel.centerYAnchor.constraint(equalTo: mealImageView.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: mealImageView.trailingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             titleLabel.heightAnchor.constraint(equalToConstant: 23)
         ])
     }

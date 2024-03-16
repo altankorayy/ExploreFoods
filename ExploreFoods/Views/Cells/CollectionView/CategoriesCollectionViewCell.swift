@@ -12,7 +12,7 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "CategoriesCollectionViewCell"
     
-    private lazy var categoriesTitle: UILabel = {
+    private lazy var categoriesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -56,12 +56,13 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        categoriesTitle.text = nil
+        categoriesLabel.text = nil
+        descriptionLabel.text = nil
         categoriesImage.image = nil
     }
     
     public func configure(with category: Category) {
-        categoriesTitle.text = category.strCategory
+        categoriesLabel.text = category.strCategory
         descriptionLabel.text = category.strCategoryDescription
         
         imageLoaderService.getImage(url: category.strCategoryThumb) { [weak self] result in
@@ -83,15 +84,15 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         layer.masksToBounds = true
         layer.cornerRadius = 12
         
-        addSubviews(categoriesTitle, categoriesImage, descriptionLabel)
+        addSubviews(categoriesLabel, categoriesImage, descriptionLabel)
         
         NSLayoutConstraint.activate([
-            categoriesTitle.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            categoriesTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            categoriesTitle.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            categoriesTitle.heightAnchor.constraint(equalToConstant: 21),
+            categoriesLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            categoriesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            categoriesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            categoriesLabel.heightAnchor.constraint(equalToConstant: 21),
             
-            categoriesImage.topAnchor.constraint(equalTo: categoriesTitle.bottomAnchor, constant: 8),
+            categoriesImage.topAnchor.constraint(equalTo: categoriesLabel.bottomAnchor, constant: 8),
             categoriesImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             categoriesImage.trailingAnchor.constraint(equalTo: trailingAnchor),
             categoriesImage.heightAnchor.constraint(equalToConstant: 150),

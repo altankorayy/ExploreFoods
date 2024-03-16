@@ -9,8 +9,11 @@ import UIKit
 
 enum SFSymbols {
     static let favoriteList = UIImage(systemName: "star.square.fill")
+    static let logout = UIImage(systemName: "rectangle.portrait.and.arrow.right")
 }
 
 enum UIColorKit {
-    static let customBlue = UIColor(red: 106/255, green: 224/255, blue: 245/255, alpha: 1)
+    static let red = UIColor.systemRed
 }
+
+

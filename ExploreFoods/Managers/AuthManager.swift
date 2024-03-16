@@ -11,11 +11,13 @@ import Firebase
 protocol AuthManagerService {
     func createUser(email: String, password: String, completion: @escaping (FirebaseAuthError?) -> Void)
     func loginUser(email: String, password: String, completion: @escaping (FirebaseAuthError?) -> Void)
+    func logoutUser(completion: @escaping (FirebaseAuthError?) -> Void)
 }
 
 enum FirebaseAuthError: String, Error {
     case failedToCreateUser = "Failed to create an account. Please try again."
     case failedToLoginUser = "Failed to sign in. Please check your email or password."
+    case failedToSignOutUser = "Failed to sign out. Please try again later."
 }
 
 class AuthManager: AuthManagerService {
@@ -39,6 +41,15 @@ class AuthManager: AuthManagerService {
                 return
             }
             completion(nil)
+        }
+    }
+    
+    func logoutUser(completion: @escaping (FirebaseAuthError?) -> Void) {
+        do {
+            try auth.signOut()
+            completion(nil)
+        } catch {
+            completion(.failedToSignOutUser)
         }
     }
 }

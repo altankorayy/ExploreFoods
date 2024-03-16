@@ -13,6 +13,8 @@ protocol HomeViewModelDelegate: AnyObject {
     func updateViewCategories(with categories: [Category])
     func updateViewDesserts(with desserts: [Meal])
     func updateViewWithError(with error: AFError)
+    func updateViewSignOut(with state: Bool)
+    func updateViewSignOutWithError(with error: FirebaseAuthError?)
 }
 
 class HomeViewModel {
@@ -20,9 +22,11 @@ class HomeViewModel {
     weak var delegate: HomeViewModelDelegate?
     
     private let networkManagerService: NetworkManagerService
+    private let authManagerService: AuthManagerService
     
-    init(networkManagerService: NetworkManagerService) {
+    init(networkManagerService: NetworkManagerService, authManagerService: AuthManagerService) {
         self.networkManagerService = networkManagerService
+        self.authManagerService = authManagerService
     }
     
     
@@ -45,6 +49,17 @@ class HomeViewModel {
             case .failure(let error):
                 self?.delegate?.updateViewWithError(with: error)
             }
+        }
+    }
+    
+    func logoutUser() {
+        authManagerService.logoutUser { [weak self] error in
+            guard let error = error else {
+                self?.delegate?.updateViewSignOut(with: true)
+                return
+            }
+            self?.delegate?.updateViewSignOut(with: false)
+            self?.delegate?.updateViewSignOutWithError(with: error)
         }
     }
 }

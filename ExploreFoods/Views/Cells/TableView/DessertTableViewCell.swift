@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol DessertTableViewCellDelegate: AnyObject {
+    func didSelectItemAt(with meal: Meal, viewController: UIViewController)
+}
+
 class DessertTableViewCell: UITableViewCell {
 
     static let identifier = "DessertTableViewCell"
+    
+    weak var delegate: DessertTableViewCellDelegate?
     
     private lazy var dessertCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -64,12 +70,18 @@ extension DessertTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DessertCollectionViewCell.identifier, for: indexPath) as?  DessertCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure(with: dessertsModel[indexPath.row])
+        cell.configure(with: dessertsModel[indexPath.item])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let selectedModel = dessertsModel[indexPath.item]
+        let networkManagerService: NetworkManagerService = NetworkManager()
+        let viewModel = DessertsDetailViewModel(networkManagerService: networkManagerService, model: selectedModel)
+        let destinationVC = DessertsDetailVC(viewModel: viewModel)
+        self.delegate?.didSelectItemAt(with: selectedModel, viewController: destinationVC)
     }
 }
 

@@ -61,9 +61,7 @@ class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        guard let currentUser = Auth.auth().currentUser else { return }
-        
-        if currentUser.uid.isEmpty {
+        if Auth.auth().currentUser == nil {
             configureSheet()
         }
     }
@@ -76,7 +74,7 @@ class HomeVC: UIViewController {
             sheet.detents = [.custom(resolver: { context in
                 context.maximumDetentValue * 0.4
             })]
-            sheet.preferredCornerRadius = 30
+            sheet.preferredCornerRadius = 25
             sheet.prefersGrabberVisible = true
         }
         
@@ -96,8 +94,27 @@ class HomeVC: UIViewController {
         tableView.frame = view.bounds
         
         let favoritesList = UIBarButtonItem(image: SFSymbols.favoriteList, style: .done, target: self, action: nil)
-        favoritesList.tintColor = UIColorKit.customBlue
+        favoritesList.tintColor = UIColorKit.red
         navigationItem.rightBarButtonItem = favoritesList
+        
+        let logoutButton = UIBarButtonItem(image: SFSymbols.logout, style: .done, target: self, action: #selector(didTapLogoutButton))
+        logoutButton.tintColor = UIColorKit.red
+        navigationItem.leftBarButtonItem = logoutButton
+    }
+    
+    @objc
+    private func didTapLogoutButton() {
+        let actionSheet = UIAlertController(title: nil, message: "Do you want to sign out?", preferredStyle: UIAlertController.Style.actionSheet)
+        let signOutButton = UIAlertAction(title: "Sign out", style: .destructive) { [weak self] _ in
+            
+            self?.viewModel.delegate = self
+            self?.viewModel.logoutUser()
+        }
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        actionSheet.addAction(signOutButton)
+        actionSheet.addAction(cancelButton)
+        present(actionSheet, animated: true)
     }
 }
 
@@ -119,10 +136,12 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         case Sections.categories.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CategoriesTableViewCell.identifier, for: indexPath) as? CategoriesTableViewCell else { return UITableViewCell() }
+            cell.delegate = self
             cell.configure(with: categoriesModel)
             return cell
         case Sections.dessert.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DessertTableViewCell.identifier, for: indexPath) as? DessertTableViewCell else { return UITableViewCell() }
+            cell.delegate = self
             cell.configure(with: dessertsModel)
             return cell
         default:
@@ -159,12 +178,27 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeVC: HomeViewModelDelegate {
+    func updateViewSignOut(with state: Bool) {
+        if state {
+            configureSheet()
+        }
+    }
+    
+    func updateViewSignOutWithError(with error: FirebaseAuthError?) {
+        guard let error = error else { return }
+        showAlertView(title: "Something went wrong", message: error.rawValue)
+    }
+    
     func updateViewDesserts(with dessert: [Meal]) {
         self.dessertsModel = dessert
+        
+        self.tableView.reloadData()
     }
     
     func updateViewArea(with area: [Meal]) {
         self.areasModel = area
+        
+        self.tableView.reloadData()
     }
     
     func updateViewCategories(with categories: [Category]) {
@@ -178,9 +212,23 @@ extension HomeVC: HomeViewModelDelegate {
     }
 }
 
-extension HomeVC: DidSelectItemAtDelegate {
+extension HomeVC: CountryTableViewCellDelegate {
     func didSelectItemAt(with area: String, viewController: UIViewController) {
         viewController.title = "\(area) Special Meals"
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+extension HomeVC: CategoriesTableViewCellDelegate {
+    func didSelectItemAt(with category: Category, viewController: UIViewController) {
+        viewController.title = category.strCategory
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+extension HomeVC: DessertTableViewCellDelegate {
+    func didSelectItemAt(with meal: Meal, viewController: UIViewController) {
+        viewController.title = meal.strMeal
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

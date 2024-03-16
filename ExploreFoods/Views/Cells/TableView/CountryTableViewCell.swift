@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol DidSelectItemAtDelegate: AnyObject {
+protocol CountryTableViewCellDelegate: AnyObject {
     func didSelectItemAt(with area: String, viewController: UIViewController)
 }
 
@@ -29,7 +29,7 @@ class CountryTableViewCell: UITableViewCell {
     
     var areas = [String]()
     
-    weak var delegate: DidSelectItemAtDelegate?
+    weak var delegate: CountryTableViewCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -64,14 +64,14 @@ extension CountryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCollectionViewCell.identifier, for: indexPath) as? CountryCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure(with: areas[indexPath.row])
+        cell.configure(with: areas[indexPath.item])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        guard let selectedModel = areas[indexPath.row].components(separatedBy: " ").last else { return }
+        guard let selectedModel = areas[indexPath.item].components(separatedBy: " ").last else { return }
         let networkManagerService: NetworkManagerService = NetworkManager()
         let viewModel = CountryDetailViewModel(networkManagerService: networkManagerService, area: selectedModel)
         let destinationVC = CountryDetailVC(viewModel: viewModel)

@@ -12,7 +12,7 @@ class WelcomeVC: UIViewController {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Explore dishes from all around the world."
+        label.text = "Explore meals from all around the world."
         label.font = .systemFont(ofSize: 26, weight: .heavy)
         label.numberOfLines = 2
         label.textAlignment = .center
@@ -29,7 +29,7 @@ class WelcomeVC: UIViewController {
         button.layer.cornerRadius = 25
         button.clipsToBounds = true
         button.layer.borderWidth = 2
-        button.layer.borderColor = UIColorKit.customBlue.cgColor
+        button.layer.borderColor = UIColorKit.red.cgColor
         return button
     }()
     
@@ -38,10 +38,10 @@ class WelcomeVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Register", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 25
         button.clipsToBounds = true
-        button.backgroundColor = UIColorKit.customBlue
+        button.backgroundColor = UIColorKit.red
         return button
     }()
 
@@ -52,12 +52,24 @@ class WelcomeVC: UIViewController {
         configureConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAuthNotification), name: .registerSuccess, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAuthNotification), name: .loginSuccess, object: nil)
+    }
+    
     private func configureView() {
         view.backgroundColor = .systemBackground
         view.addSubviews(titleLabel, loginButton, registerButton)
         
         loginButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
         registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
+    }
+    
+    @objc
+    private func handleAuthNotification() {
+        dismiss(animated: true)
     }
     
     @objc

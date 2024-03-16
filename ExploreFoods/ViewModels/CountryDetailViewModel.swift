@@ -18,7 +18,7 @@ class CountryDetailViewModel {
     weak var delegate: CountryDetailViewModelDelegate?
     
     private let networkManagerService: NetworkManagerService
-    var area: String
+    private var area: String
     
     init(networkManagerService: NetworkManagerService, area: String) {
         self.networkManagerService = networkManagerService

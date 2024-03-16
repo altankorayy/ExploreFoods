@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CategoriesTableViewCellDelegate: AnyObject {
+    func didSelectItemAt(with category: Category, viewController: UIViewController)
+}
+
 class CategoriesTableViewCell: UITableViewCell {
 
     static let identifier = "CategoriesTableViewCell"
@@ -22,6 +26,8 @@ class CategoriesTableViewCell: UITableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
+    
+    weak var delegate: CategoriesTableViewCellDelegate?
     
     var categoryModel = [Category]()
     
@@ -43,7 +49,8 @@ class CategoriesTableViewCell: UITableViewCell {
         self.categoryModel = model
         
         DispatchQueue.main.async { [weak self] in
-            self?.categoriesCollectionView.reloadData()
+            guard let self = self else { return }
+            self.categoriesCollectionView.reloadData()
         }
     }
     
@@ -63,11 +70,15 @@ extension CategoriesTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure(with: categoryModel[indexPath.row])
+        cell.configure(with: categoryModel[indexPath.item])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let destinationVC = CategoryDetailVC()
+        destinationVC.configure(model: categoryModel[indexPath.item])
+        self.delegate?.didSelectItemAt(with: categoryModel[indexPath.item], viewController: destinationVC)
     }
 }

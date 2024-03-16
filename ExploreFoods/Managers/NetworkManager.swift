@@ -12,12 +12,13 @@ protocol NetworkManagerService {
     func getMealsByArea(with area: String, completion: @escaping(Result<Meals, AFError>) -> Void)
     func getCategories(completion: @escaping(Result<Categories, AFError>) -> Void)
     func getDesserts(completion: @escaping(Result<Meals, AFError>) -> Void)
+    func getDessertsDetail(with meal: String, completion: @escaping(Result<Meals, AFError>) -> Void)
 }
 
 class NetworkManager: NetworkManagerService {
     
     func getMealsByArea(with area: String, completion: @escaping(Result<Meals, AFError>) -> Void) {
-        let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.byArea.rawValue + "\(area)"
+        let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.byArea.rawValue + area
         
         guard let url = URL(string: endpoint) else {
             completion(.failure(.invalidURL(url: endpoint)))
@@ -54,6 +55,24 @@ class NetworkManager: NetworkManagerService {
     
     func getDesserts(completion: @escaping(Result<Meals, AFError>) -> Void) {
         let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.desserts.rawValue
+        
+        guard let url = URL(string: endpoint) else {
+            completion(.failure(.invalidURL(url: endpoint)))
+            return
+        }
+        
+        AF.request(url, method: .get).responseDecodable(of: Meals.self) { response in
+            switch response.result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func getDessertsDetail(with meal: String, completion: @escaping(Result<Meals, AFError>) -> Void) {
+        let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.searchMeal.rawValue + meal
         
         guard let url = URL(string: endpoint) else {
             completion(.failure(.invalidURL(url: endpoint)))

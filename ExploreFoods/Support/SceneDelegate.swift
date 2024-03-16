@@ -20,13 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         let networkManagerService: NetworkManagerService = NetworkManager()
-        let viewModel = HomeViewModel(networkManagerService: networkManagerService)
+        let authManagerService: AuthManagerService = AuthManager()
+        let viewModel = HomeViewModel(networkManagerService: networkManagerService, authManagerService: authManagerService)
         let vc = UINavigationController(rootViewController: HomeVC(viewModel: viewModel))
         window.rootViewController = vc
         self.window = window
         window.makeKeyAndVisible()
         
-        vc.navigationBar.tintColor = UIColorKit.customBlue
+        vc.navigationBar.tintColor = UIColorKit.red
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
