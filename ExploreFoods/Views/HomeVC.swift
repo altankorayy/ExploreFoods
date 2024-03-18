@@ -93,10 +93,6 @@ class HomeVC: UIViewController {
         
         tableView.frame = view.bounds
         
-        let favoritesList = UIBarButtonItem(image: SFSymbols.favoriteList, style: .done, target: self, action: nil)
-        favoritesList.tintColor = UIColorKit.red
-        navigationItem.rightBarButtonItem = favoritesList
-        
         let logoutButton = UIBarButtonItem(image: SFSymbols.logout, style: .done, target: self, action: #selector(didTapLogoutButton))
         logoutButton.tintColor = UIColorKit.red
         navigationItem.leftBarButtonItem = logoutButton

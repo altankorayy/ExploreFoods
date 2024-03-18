@@ -26,6 +26,7 @@
 		E16478392B8CF0480013BD39 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16478382B8CF0480013BD39 /* UIViewController+Extension.swift */; };
 		E1677F4F2BA1F14A007ED8B5 /* CountryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1677F4E2BA1F14A007ED8B5 /* CountryDetailTableViewCell.swift */; };
 		E1677F512BA1FDFA007ED8B5 /* CategoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1677F502BA1FDFA007ED8B5 /* CategoryDetailVC.swift */; };
+		E17744FF2BA87D6400C72050 /* CountryDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17744FE2BA87D6400C72050 /* CountryDetailCollectionViewCell.swift */; };
 		E18258852B8CE269006A784D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E18258842B8CE269006A784D /* GoogleService-Info.plist */; };
 		E1BDD0D12B9F5CD100C7678B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDD0D02B9F5CD100C7678B /* ImageLoader.swift */; };
 		E1C32C8E2BA37523005483BF /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C32C8D2BA37523005483BF /* UILabel+Extension.swift */; };
@@ -84,6 +85,7 @@
 		E16478382B8CF0480013BD39 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		E1677F4E2BA1F14A007ED8B5 /* CountryDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailTableViewCell.swift; sourceTree = "<group>"; };
 		E1677F502BA1FDFA007ED8B5 /* CategoryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailVC.swift; sourceTree = "<group>"; };
+		E17744FE2BA87D6400C72050 /* CountryDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		E18258842B8CE269006A784D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1BDD0D02B9F5CD100C7678B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		E1C32C8D2BA37523005483BF /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				E13E85A62B9361100099CEF0 /* CountryCollectionViewCell.swift */,
 				E1D9750D2B94A0BF009AACD9 /* CategoriesCollectionViewCell.swift */,
 				E1D975112B94A0FE009AACD9 /* DessertCollectionViewCell.swift */,
+				E17744FE2BA87D6400C72050 /* CountryDetailCollectionViewCell.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				E13E859B2B93390C0099CEF0 /* Model.swift in Sources */,
 				E1E5D07B2B8A177500B0B5B3 /* HomeVC.swift in Sources */,
 				E13E85A72B9361100099CEF0 /* CountryCollectionViewCell.swift in Sources */,
+				E17744FF2BA87D6400C72050 /* CountryDetailCollectionViewCell.swift in Sources */,
 				E102BC042BA5B8970099CD3F /* DessertsDetailViewModel.swift in Sources */,
 				E160424F2B8F591F007C10D2 /* AuthManager.swift in Sources */,
 				E1F8F6C52B98967C00AA2846 /* CategoriesTableViewCell.swift in Sources */,

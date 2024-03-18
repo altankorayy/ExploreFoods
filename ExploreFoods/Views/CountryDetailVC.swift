@@ -10,12 +10,11 @@ import Alamofire
 
 class CountryDetailVC: UIViewController {
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(CountryDetailTableViewCell.self, forCellReuseIdentifier: CountryDetailTableViewCell.identifier)
-        tableView.showsVerticalScrollIndicator = false
-        return tableView
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: CountryDetailVC.createLayout())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(CountryDetailCollectionViewCell.self, forCellWithReuseIdentifier: CountryDetailCollectionViewCell.identifier)
+        return collectionView
     }()
     
     private let viewModel: CountryDetailViewModel
@@ -43,39 +42,46 @@ class CountryDetailVC: UIViewController {
 
     private func configureView() {
         view.backgroundColor = .systemBackground
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
         ])
     }
+    
+    static func createLayout() -> UICollectionViewCompositionalLayout {
+        let item = NSCollectionLayoutItem(layoutSize:
+                                            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
+                                                                   heightDimension: .fractionalHeight(1)))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                                                          heightDimension: .fractionalHeight(0.19)),
+                                                       subitems: [item, item, item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
+        let section = NSCollectionLayoutSection(group: group)
+        return UICollectionViewCompositionalLayout(section: section)
+    }
 }
 
-extension CountryDetailVC: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension CountryDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return countryFoodModel.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryDetailTableViewCell.identifier, for: indexPath) as? CountryDetailTableViewCell else { return UITableViewCell() }
-        cell.configure(model: countryFoodModel[indexPath.row])
-        cell.accessoryType = .disclosureIndicator
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryDetailCollectionViewCell.identifier, for: indexPath) as? CountryDetailCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(model: countryFoodModel[indexPath.item])
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
 
@@ -84,7 +90,7 @@ extension CountryDetailVC: CountryDetailViewModelDelegate {
         self.countryFoodModel = model
         
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
     }
     
