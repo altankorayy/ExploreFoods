@@ -180,8 +180,7 @@ extension HomeVC: HomeViewModelDelegate {
         }
     }
     
-    func updateViewSignOutWithError(with error: FirebaseAuthError?) {
-        guard let error = error else { return }
+    func updateViewSignOutWithError(with error: FirebaseAuthError) {
         showAlertView(title: "Something went wrong", message: error.rawValue)
     }
     

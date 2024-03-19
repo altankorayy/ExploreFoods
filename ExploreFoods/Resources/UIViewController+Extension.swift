@@ -10,7 +10,6 @@ import UIKit
 let spinnerView = SpinnerView()
 
 extension UIViewController {
-    
     func startSpinnerView() {
         spinnerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(spinnerView)

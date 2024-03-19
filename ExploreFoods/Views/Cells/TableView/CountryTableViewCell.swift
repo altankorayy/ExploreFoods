@@ -15,6 +15,8 @@ class CountryTableViewCell: UITableViewCell {
 
     static let identifier = "CountryTableViewCell"
     
+    weak var delegate: CountryTableViewCellDelegate?
+    
     private lazy var countryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 120, height: 55)
@@ -28,8 +30,6 @@ class CountryTableViewCell: UITableViewCell {
     }()
     
     var areas = [String]()
-    
-    weak var delegate: CountryTableViewCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

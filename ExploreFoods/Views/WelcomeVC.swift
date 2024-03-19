@@ -74,13 +74,17 @@ class WelcomeVC: UIViewController {
     
     @objc
     private func didTapRegisterButton() {
-        let registerVC = RegisterVC()
+        let authManagerService: AuthManagerService = AuthManager()
+        let viewModel = RegisterViewModel(authManagerService: authManagerService, email: nil, password: nil)
+        let registerVC = RegisterVC(viewModel: viewModel)
         navigationController?.present(registerVC, animated: true)
     }
     
     @objc
     private func didTapLoginButton() {
-        let loginVC = LoginVC()
+        let authManagerService: AuthManagerService = AuthManager()
+        let viewModel = LoginViewModel(authManagerService: authManagerService, email: nil, password: nil)
+        let loginVC = LoginVC(viewModel: viewModel)
         navigationController?.present(loginVC, animated: true)
     }
     

@@ -82,7 +82,17 @@ class RegisterVC: UIViewController {
         return button
     }()
     
-    var viewModel: RegisterViewModel?
+    private let viewModel: RegisterViewModel
+    
+    init(viewModel: RegisterViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        viewModel.delegate = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,10 +122,9 @@ class RegisterVC: UIViewController {
             return
         }
         
-        let authManagerService: AuthManagerService = AuthManager()
-        viewModel = RegisterViewModel(authManagerService: authManagerService, email: email, password: password)
-        viewModel?.delegate = self
-        viewModel?.createUser()
+        viewModel.email = email
+        viewModel.password = password
+        viewModel.createUser()
         
     }
     
@@ -171,11 +180,11 @@ extension RegisterVC: RegisterViewModelDelegate {
         }
     }
     
-    func handleError(_ error: String) {
+    func registerFailure(_ error: String) {
         showAlertView(title: "Something went wrong", message: error)
     }
     
-    func showSpinnerView(_ state: Bool) {
+    func showLoadingView(_ state: Bool) {
         if state {
             startSpinnerView()
         } else {

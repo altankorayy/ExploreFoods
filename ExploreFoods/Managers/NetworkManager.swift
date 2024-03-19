@@ -9,77 +9,18 @@ import UIKit
 import Alamofire
 
 protocol NetworkManagerService {
-    func getMealsByArea(with area: String, completion: @escaping(Result<Meals, AFError>) -> Void)
-    func getCategories(completion: @escaping(Result<Categories, AFError>) -> Void)
-    func getDesserts(completion: @escaping(Result<Meals, AFError>) -> Void)
-    func getDessertsDetail(with meal: String, completion: @escaping(Result<Meals, AFError>) -> Void)
+    func getData<T: Codable>(with endpoint: String, responseType: T.Type, completion: @escaping(Result<T, AFError>) -> Void)
 }
 
 class NetworkManager: NetworkManagerService {
     
-    func getMealsByArea(with area: String, completion: @escaping(Result<Meals, AFError>) -> Void) {
-        let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.byArea.rawValue + area
-        
+    func getData<T: Codable>(with endpoint: String, responseType: T.Type, completion: @escaping(Result<T, AFError>) -> Void) {
         guard let url = URL(string: endpoint) else {
             completion(.failure(.invalidURL(url: endpoint)))
             return
         }
         
-        AF.request(url, method: .get).responseDecodable(of: Meals.self) { response in
-            switch response.result {
-            case .success(let data):
-                completion(.success(data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func getCategories(completion: @escaping(Result<Categories, AFError>) -> Void) {
-        let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.categories.rawValue
-        
-        guard let url = URL(string: endpoint) else {
-            completion(.failure(AFError.invalidURL(url: endpoint)))
-            return
-        }
-        
-        AF.request(url, method: .get).responseDecodable(of: Categories.self) { response in
-            switch response.result {
-            case .success(let data):
-                completion(.success(data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func getDesserts(completion: @escaping(Result<Meals, AFError>) -> Void) {
-        let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.desserts.rawValue
-        
-        guard let url = URL(string: endpoint) else {
-            completion(.failure(.invalidURL(url: endpoint)))
-            return
-        }
-        
-        AF.request(url, method: .get).responseDecodable(of: Meals.self) { response in
-            switch response.result {
-            case .success(let data):
-                completion(.success(data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func getDessertsDetail(with meal: String, completion: @escaping(Result<Meals, AFError>) -> Void) {
-        let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.searchMeal.rawValue + meal
-        
-        guard let url = URL(string: endpoint) else {
-            completion(.failure(.invalidURL(url: endpoint)))
-            return
-        }
-        
-        AF.request(url, method: .get).responseDecodable(of: Meals.self) { response in
+        AF.request(url, method: .get).responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let data):
                 completion(.success(data))

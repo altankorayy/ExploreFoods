@@ -15,6 +15,8 @@ class CategoriesTableViewCell: UITableViewCell {
 
     static let identifier = "CategoriesTableViewCell"
     
+    weak var delegate: CategoriesTableViewCellDelegate?
+    
     private lazy var categoriesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 150, height: 230)
@@ -26,8 +28,6 @@ class CategoriesTableViewCell: UITableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
-    
-    weak var delegate: CategoriesTableViewCellDelegate?
     
     var categoryModel = [Category]()
     

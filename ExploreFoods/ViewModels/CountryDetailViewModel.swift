@@ -18,6 +18,7 @@ class CountryDetailViewModel {
     weak var delegate: CountryDetailViewModelDelegate?
     
     private let networkManagerService: NetworkManagerService
+    
     private var area: String
     
     init(networkManagerService: NetworkManagerService, area: String) {
@@ -26,7 +27,9 @@ class CountryDetailViewModel {
     }
     
     public func getMealsByArea() {
-        networkManagerService.getMealsByArea(with: area) { [weak self] result in
+        let endpoint = APIEndpoint.baseUrl.rawValue + APIEndpoint.byArea.rawValue + area
+        
+        networkManagerService.getData(with: endpoint, responseType: Meals.self) { [weak self] result in
             switch result {
             case .success(let data):
                 self?.delegate?.updateView(model: data.meals)
