@@ -52,7 +52,6 @@ class CountryDetailVC: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
         ])
     }
     
@@ -82,6 +81,13 @@ extension CountryDetailVC: UICollectionViewDelegate, UICollectionViewDataSource 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let selectedModel = countryFoodModel[indexPath.row]
+        let networkManagerService: NetworkManagerService = NetworkManager()
+        let viewModel = CountryMealDetailViewModel(networkManagerService: networkManagerService, meal: selectedModel.strMeal)
+        let destinationVC = CountryMealDetailVC(viewModel: viewModel)
+        destinationVC.title = selectedModel.strMeal
+        navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
 

@@ -1,13 +1,14 @@
 //
-//  CategoryDetailViewController.swift
+//  CountryMealDetailVC.swift
 //  ExploreFoods
 //
-//  Created by Altan on 13.03.2024.
+//  Created by Altan on 20.03.2024.
 //
 
 import UIKit
+import Alamofire
 
-class CategoryDetailVC: UIViewController {
+class CountryMealDetailVC: UIViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -15,8 +16,8 @@ class CategoryDetailVC: UIViewController {
         scrollView.alwaysBounceVertical = true
         return scrollView
     }()
-    
-    private lazy var categoryImage: UIImageView = {
+
+    private lazy var mealImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.masksToBounds = true
@@ -50,17 +51,32 @@ class CategoryDetailVC: UIViewController {
     }()
     
     private let imageLoaderService: ImageLoaderService = ImageLoader()
+    
+    private let viewModel: CountryMealDetailViewModel
+    
+    init(viewModel: CountryMealDetailViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        
+        viewModel.delegate = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         updateView()
+        
+        viewModel.getMealsDetail()
     }
 
     private func updateView() {
         view.backgroundColor = .systemBackground
         view.addSubview(scrollView)
-        scrollView.addSubviews(categoryImage, titleLabel, descriptionLabel)
+        scrollView.addSubviews(mealImage, titleLabel, descriptionLabel)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -68,13 +84,13 @@ class CategoryDetailVC: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            categoryImage.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            categoryImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 8),
-            categoryImage.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -8),
-            categoryImage.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -16),
-            categoryImage.heightAnchor.constraint(equalToConstant: 250),
+            mealImage.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            mealImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 8),
+            mealImage.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -8),
+            mealImage.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -16),
+            mealImage.heightAnchor.constraint(equalToConstant: 250),
             
-            titleLabel.topAnchor.constraint(equalTo: categoryImage.bottomAnchor, constant: 12),
+            titleLabel.topAnchor.constraint(equalTo: mealImage.bottomAnchor, constant: 12),
             titleLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -8),
             titleLabel.heightAnchor.constraint(equalToConstant: 30),
@@ -86,23 +102,35 @@ class CategoryDetailVC: UIViewController {
         ])
     }
     
-    public func configure(model: Category) {
-        titleLabel.text = model.strCategory
-        descriptionLabel.text = model.strCategoryDescription
-        
-        imageLoaderService.getImage(url: model.strCategoryThumb) { [weak self] result in
+    private func configure(meal: Meal) {
+        imageLoaderService.getImage(url: meal.strMealThumb) { [weak self] result in
             switch result {
             case .success(let imageData):
                 guard let imageData = imageData, let self = self else { return }
                 
                 DispatchQueue.main.async {
-                    self.categoryImage.image = UIImage(data: imageData)
+                    self.mealImage.image = UIImage(data: imageData)
                 }
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
 }
 
+extension CountryMealDetailVC: CountryMealDetailViewModelDelegate {
+    func updateView(model: [Meal]) {
+        if let meal = model.first {
+            titleLabel.text = meal.strMeal
+            descriptionLabel.text = meal.strInstructions
+            
+            configure(meal: meal)
+        }
+    }
+    
+    func updateViewWithError(error: Alamofire.AFError) {
+        showAlertView(title: "Something went wrong", message: error.localizedDescription)
+    }
+    
+    
+}
