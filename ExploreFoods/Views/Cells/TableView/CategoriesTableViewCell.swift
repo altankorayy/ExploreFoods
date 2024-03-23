@@ -77,8 +77,8 @@ extension CategoriesTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let destinationVC = CategoryDetailVC()
-        destinationVC.configure(model: categoryModel[indexPath.item])
+        let destinationVC = MealDetailVC()
+        destinationVC.configure(with: categoryModel[indexPath.item])
         self.delegate?.didSelectItemAt(with: categoryModel[indexPath.item], viewController: destinationVC)
     }
 }

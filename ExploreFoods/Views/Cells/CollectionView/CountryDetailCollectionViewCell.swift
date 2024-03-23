@@ -50,7 +50,7 @@ class CountryDetailCollectionViewCell: UICollectionViewCell {
         imageLoaderService.getImage(url: model.strMealThumb) { [weak self] result in
             switch result {
             case .success(let imageData):
-                guard let imageData = imageData, let self = self else { return }
+                guard let self = self else { return }
                 
                 DispatchQueue.main.async {
                     self.mealImageView.image = UIImage(data: imageData)

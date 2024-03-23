@@ -9,18 +9,18 @@ import Foundation
 import Alamofire
 
 protocol ImageLoaderService {
-    func getImage(url: String, completion: @escaping(Result<Data?, AFError>) -> Void)
+    func getImage(url: String, completion: @escaping(Result<Data, AFError>) -> Void)
 }
 
 class ImageLoader: ImageLoaderService {
     
-    func getImage(url: String, completion: @escaping(Result<Data?, AFError>) -> Void) {
+    func getImage(url: String, completion: @escaping(Result<Data, AFError>) -> Void) {
         guard let imageUrl = URL(string: url) else {
             completion(.failure(AFError.invalidURL(url: url)))
             return
         }
         
-        AF.request(imageUrl, method: .get).response { response in
+        AF.request(imageUrl, method: .get).responseData { response in
             switch response.result {
             case .success(let data):
                 completion(.success(data))

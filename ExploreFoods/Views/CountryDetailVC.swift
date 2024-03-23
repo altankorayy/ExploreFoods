@@ -17,10 +17,10 @@ class CountryDetailVC: UIViewController {
         return collectionView
     }()
     
-    private let viewModel: CountryDetailViewModel
+    private let viewModel: MealDetailViewModel
     var countryFoodModel = [Meal]()
     
-    init(viewModel: CountryDetailViewModel) {
+    init(viewModel: MealDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
@@ -59,8 +59,9 @@ class CountryDetailVC: UIViewController {
         let item = NSCollectionLayoutItem(layoutSize:
                                             NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                                    heightDimension: .fractionalHeight(1)))
+        let goupHeight = DeviceTypes.isiPhone8Standard ? 0.24 : 0.19
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                                                          heightDimension: .fractionalHeight(0.19)),
+                                                                                          heightDimension: .fractionalHeight(goupHeight)),
                                                        subitems: [item, item, item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
         let section = NSCollectionLayoutSection(group: group)
@@ -84,14 +85,16 @@ extension CountryDetailVC: UICollectionViewDelegate, UICollectionViewDataSource 
         
         let selectedModel = countryFoodModel[indexPath.row]
         let networkManagerService: NetworkManagerService = NetworkManager()
-        let viewModel = CountryMealDetailViewModel(networkManagerService: networkManagerService, meal: selectedModel.strMeal)
-        let destinationVC = CountryMealDetailVC(viewModel: viewModel)
+        let viewModel = MealDetailViewModel(networkManagerService: networkManagerService, meal: selectedModel.strMeal)
+        let destinationVC = MealDetailVC(viewModel: viewModel)
+        
         destinationVC.title = selectedModel.strMeal
+        viewModel.getMealsDetail()
         navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
 
-extension CountryDetailVC: CountryDetailViewModelDelegate {
+extension CountryDetailVC: MealDetailViewModelDelegate {
     func updateView(model: [Meal]) {
         self.countryFoodModel = model
         

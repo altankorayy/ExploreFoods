@@ -68,7 +68,7 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         imageLoaderService.getImage(url: category.strCategoryThumb) { [weak self] result in
             switch result {
             case .success(let imageData):
-                guard let imageData = imageData, let self = self else { return }
+                guard let self = self else { return }
                 
                 DispatchQueue.main.async {
                     self.categoriesImage.image = UIImage(data: imageData)

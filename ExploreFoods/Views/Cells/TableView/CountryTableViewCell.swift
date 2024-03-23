@@ -73,9 +73,10 @@ extension CountryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
         
         guard let selectedModel = areas[indexPath.item].components(separatedBy: " ").last else { return }
         let networkManagerService: NetworkManagerService = NetworkManager()
-        let viewModel = CountryDetailViewModel(networkManagerService: networkManagerService, area: selectedModel)
+        let viewModel = MealDetailViewModel(networkManagerService: networkManagerService, area: selectedModel)
         let destinationVC = CountryDetailVC(viewModel: viewModel)
         
+        viewModel.getMealsByArea()
         self.delegate?.didSelectItemAt(with: selectedModel, viewController: destinationVC)
     }
 }

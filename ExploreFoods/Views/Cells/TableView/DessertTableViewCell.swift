@@ -79,8 +79,10 @@ extension DessertTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
         
         let selectedModel = dessertsModel[indexPath.item]
         let networkManagerService: NetworkManagerService = NetworkManager()
-        let viewModel = DessertsDetailViewModel(networkManagerService: networkManagerService, model: selectedModel)
-        let destinationVC = DessertsDetailVC(viewModel: viewModel)
+        let viewModel = MealDetailViewModel(networkManagerService: networkManagerService, model: selectedModel)
+        let destinationVC = MealDetailVC(viewModel: viewModel)
+        
+        viewModel.getDessertsDetail()
         self.delegate?.didSelectItemAt(with: selectedModel, viewController: destinationVC)
     }
 }
