@@ -28,7 +28,7 @@
 ## Screenshots
 <div class="row">
   <img src="https://github.com/altankorayy/ExploreFoods/assets/67483357/76581fd1-fbe0-4a62-9283-d74ec0ab12a2" width="200" height="400" class="col-md-6">
-  <img src="https://github.com/altankorayy/ExploreFoods/assets/67483357/3b816915-9305-47f9-a56e-3a83e27c3072" width="200" height="400" class="col-md-6">
+  <img src="https://github.com/altankorayy/ExploreFoods/assets/67483357/f63ea272-a9bb-4eb1-b715-3c6847a0def7" width="200" height="400" class="col-md-6">
   <img src="https://github.com/altankorayy/ExploreFoods/assets/67483357/fed421bd-a65c-485d-bb0d-45407dc91c39" width="200" height="400" class="col-md-6">
 </div>
 
