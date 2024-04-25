@@ -44,6 +44,11 @@ class CountryDetailTableViewCell: UITableViewCell {
         fatalError()
     }
     
+    override func prepareForReuse() {
+        mealImageView.image = nil
+        titleLabel.text = nil
+    }
+    
     public func configure(model: Meal) {
         titleLabel.text = model.strMeal
         

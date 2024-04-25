@@ -38,6 +38,18 @@ class MealDetailVC: UIViewController {
         return label
     }()
     
+    private lazy var instructionsLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
+        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
+        label.textColor = .label
+        label.text = "Instructions"
+        return label
+    }()
+    
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +59,9 @@ class MealDetailVC: UIViewController {
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         label.sizeToFit()
+        label.backgroundColor = .secondarySystemBackground
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 12
         return label
     }()
     
@@ -74,7 +89,7 @@ class MealDetailVC: UIViewController {
     private func updateView() {
         view.backgroundColor = .systemBackground
         view.addSubview(scrollView)
-        scrollView.addSubviews(mealImage, titleLabel, descriptionLabel)
+        scrollView.addSubviews(mealImage, titleLabel, descriptionLabel, instructionsLabel)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -86,17 +101,22 @@ class MealDetailVC: UIViewController {
             mealImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 8),
             mealImage.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -8),
             mealImage.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -16),
-            mealImage.heightAnchor.constraint(equalToConstant: 250),
+            mealImage.heightAnchor.constraint(equalToConstant: 220),
             
             titleLabel.topAnchor.constraint(equalTo: mealImage.bottomAnchor, constant: 12),
             titleLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -8),
             titleLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            instructionsLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            instructionsLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 8),
+            instructionsLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -8),
+            instructionsLabel.heightAnchor.constraint(equalToConstant: 30),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: instructionsLabel.bottomAnchor, constant: 10),
             descriptionLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 8),
             descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -8),
-            descriptionLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -8)
+            descriptionLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -8),
         ])
     }
     
